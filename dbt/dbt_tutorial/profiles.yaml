@@ -1,0 +1,12 @@
+dbt_tutorial:
+  outputs:
+    dev:
+      dbname: postgres-dbt
+      host: localhost
+      user: postgres
+      pass: postgres
+      port: 5433
+      schema: public
+      threads: 1
+      type: postgres
+  target: dev
