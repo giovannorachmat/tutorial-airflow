@@ -1,2 +1,5 @@
-apache-airflow==2.8.3
-dbt-core==1.7.9
+dbt-core
+dbt-postgres
+dbt-airflow
+mysqlclient
+psycopg2-binary
