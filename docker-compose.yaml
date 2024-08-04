@@ -69,8 +69,11 @@ services:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres-airflow/airflow
       AIRFLOW__WEBSERVER__AUTHENTICATE: "false"
       AIRFLOW__WEBSERVER__RBAC: "false"
-      AIRFLOW__WEBSERVER__DISABLE_OAUTH: "true"
       AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
+      AIRFLOW__WEBSERVER__DISABLE_OAUTH: "true"
+      _AIRFLOW_WWW_USER_CREATE: "true"
+      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
+      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
     ports:
       - "8080:8080"
     healthcheck:
@@ -90,7 +93,8 @@ services:
       postgres-airflow:
         condition: service_healthy
     restart: always
-    command: -c "airflow webserver"
+    command: >
+      airflow webserver
 
   scheduler:
     build: .
@@ -110,7 +114,8 @@ services:
       postgres-airflow:
         condition: service_healthy
     restart: always
-    command: -c "airflow scheduler"
+    command: >
+      airflow scheduler
 
 volumes:
   postgres-airflow-db:
